@@ -1,0 +1,45 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
+        env:
+          VITE_GITHUB_USERNAME: ${{ secrets.VITE_GITHUB_USERNAME }}
+          VITE_GITHUB_URL: ${{ secrets.VITE_GITHUB_URL }}
+          VITE_LINKEDIN_URL: ${{ secrets.VITE_LINKEDIN_URL }}
+          VITE_EMAIL: ${{ secrets.VITE_EMAIL }}
+
+      - name: Docker Build
+        run: docker build -t subrata-portfolio:${{ github.sha }} .
+
+      - name: Deployment Placeholder
+        run: |
+          echo "Deployment is not configured."
+          echo "Store host credentials in GitHub Secrets (for example DEPLOY_HOST, DEPLOY_USER, DEPLOY_KEY)."
+          echo "Do not hardcode AWS keys, tokens, or passwords in this workflow."
