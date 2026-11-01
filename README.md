@@ -39,11 +39,18 @@ docker build -t subrata-portfolio .
 docker run --rm -p 8080:80 subrata-portfolio
 ```
 
-## GitHub
+## GitHub Pages
 
-1. Create a repository and add the remote.
-2. Set `VITE_GITHUB_USERNAME` to your login if you want live repo cards.
-3. Add GitHub Actions secrets listed in `DEPLOYMENT.md`.
+This project is ready to publish from GitHub Pages.
+
+1. Push the repository to GitHub if it is not already connected.
+2. In GitHub, open Settings → Pages.
+3. Set Source to GitHub Actions.
+4. Commit and push to `main` or `master` to trigger the workflow.
+5. Set `VITE_GITHUB_USERNAME` to your login if you want live repo cards.
+6. Add GitHub Actions secrets listed in `DEPLOYMENT.md`.
+
+Because the app uses a hash-based router, deep links work correctly on GitHub Pages without extra server config.
 
 ## Resume
 

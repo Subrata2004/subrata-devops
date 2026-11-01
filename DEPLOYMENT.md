@@ -17,7 +17,7 @@ docker compose up --build
 
 `.github/workflows/deploy.yml` runs:
 
-Checkout → Install → Lint → Test → Build → Docker Build → Deployment Placeholder
+Checkout → Setup Node → Setup Pages → Install → Lint → Test → Build → Upload Pages artifact → Deploy to GitHub Pages
 
 Configure repository secrets (examples — create only what you use):
 
@@ -25,14 +25,11 @@ Configure repository secrets (examples — create only what you use):
 - `VITE_GITHUB_URL`
 - `VITE_LINKEDIN_URL`
 - `VITE_EMAIL`
-- `DEPLOY_HOST` (placeholder)
-- `DEPLOY_USER` (placeholder)
-- `DEPLOY_KEY` (placeholder)
 
-The deploy job prints a placeholder on purpose. Wire it to S3+CloudFront, Nginx, or another host after you have credentials.
+GitHub Pages does not require a custom server configuration for this app because the router uses a hash-based path format.
 
 ## Static hosting
 
-Upload `dist/` to any static host. Configure SPA fallback so unknown paths serve `index.html`.
+Upload `dist/` to any static host, or publish from GitHub Pages using the workflow above.
 
 Replace `YOUR_DOMAIN` in `public/robots.txt`, `public/sitemap.xml`, and the canonical tag in `index.html`.
